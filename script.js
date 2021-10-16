@@ -1,5 +1,7 @@
 //Grabing some elements..
 const livesCount = document.querySelector('.LivesCount');
+const cards = document.querySelectorAll('.card');
+
 const totalLives = 6;
 
 //setting initial lives count..
@@ -24,9 +26,10 @@ const randomize = () => {
     return cardData.sort(() => Math.random() - 0.5);
 };
 
+//generating card data..
 const cardGenerator = () => {
     const cardData = randomize();
-    console.log(cardData);
+    // console.log(cardData);
 
     const face = document.querySelectorAll('.face');
     face.forEach((item) => {
@@ -35,7 +38,7 @@ const cardGenerator = () => {
     });
 
     const img = document.querySelectorAll('img');
-    console.log(img);
+    // console.log(img);
     let i = 0;
     img.forEach(item => {
         if (i < img.length) {
@@ -43,7 +46,15 @@ const cardGenerator = () => {
             i++;
         }
     });
+};
 
-}
+// console.log(cards);
+cards.forEach(item => {
+    item.addEventListener("click", () => {
+        item.classList.toggle('flip');
+        // console.log(item);
+    });
+});
+
 livesCount.textContent = currentLives;
 cardGenerator();

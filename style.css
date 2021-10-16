@@ -39,6 +39,7 @@ h1 {
     align-content: center;
     justify-content: center;
     grid-gap: 20px;
+    perspective: 800px;
 }
 
 .card {
@@ -48,6 +49,7 @@ h1 {
     background: #ffffffbb;
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
+    transition: transform .5s linear;
 }
 
 .face {
@@ -68,4 +70,9 @@ img {
     width: 100%;
     border-radius: 5px;
     background: silver;
+    backface-visibility: hidden;
+}
+
+.flip {
+    transform: rotateY(180deg);
 }
