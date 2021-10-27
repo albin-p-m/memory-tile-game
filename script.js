@@ -29,7 +29,6 @@ const randomize = () => {
 //generating card data..
 const cardGenerator = () => {
     const cardData = randomize();
-    // console.log(cardData);
 
     const face = document.querySelectorAll('.face');
     face.forEach((item) => {
@@ -38,7 +37,6 @@ const cardGenerator = () => {
     });
 
     const img = document.querySelectorAll('img');
-    // console.log(img);
     let i = 0;
     img.forEach(item => {
         if (i < img.length) {
@@ -49,11 +47,26 @@ const cardGenerator = () => {
     });
 };
 
-// console.log(cards);
 cards.forEach(item => {
     item.addEventListener("click", () => {
         item.classList.toggle('flip');
-        // console.log(item);
+        console.log(item);
+        let flippedCards = document.querySelectorAll('.flip');
+        if (flippedCards.length === 2) {
+            if (flippedCards[0].querySelector('img').name === flippedCards[1].querySelector('img').name) {
+                flippedCards.forEach(i => {
+                    i.classList.add('matched');
+                    i.classList.toggle('flip');
+                    i.style.pointerEvent = 'none';
+                });
+            } else {
+                setTimeout(() => {
+                    flippedCards.forEach(i => {
+                        i.classList.toggle('flip');
+                    });
+                }, 1000);
+            }
+        }
     });
 });
 
