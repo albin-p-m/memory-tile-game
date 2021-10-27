@@ -48,27 +48,65 @@ const cardGenerator = () => {
 };
 
 cards.forEach(item => {
-    item.addEventListener("click", () => {
+    item.addEventListener("click", (e) => {
         item.classList.toggle('flip');
-        console.log(item);
-        let flippedCards = document.querySelectorAll('.flip');
-        if (flippedCards.length === 2) {
-            if (flippedCards[0].querySelector('img').name === flippedCards[1].querySelector('img').name) {
-                flippedCards.forEach(i => {
-                    i.classList.add('matched');
-                    i.classList.toggle('flip');
-                    i.style.pointerEvent = 'none';
-                });
-            } else {
-                setTimeout(() => {
-                    flippedCards.forEach(i => {
-                        i.classList.toggle('flip');
-                    });
-                }, 1000);
-            }
-        }
+        checkCards(e);
     });
 });
+
+const reset = () => {
+    const matchedCards = document.querySelectorAll('.matched');
+    matchedCards.forEach(item => {
+        item.classList.remove('matched');
+    });
+    const flippedCards = document.querySelectorAll('.flip');
+    flippedCards.forEach(item => {
+        item.classList.remove('flip');
+    });
+    const cardData = randomize();
+    const img = document.querySelectorAll('img');
+    let i = 0;
+    img.forEach(item => {
+        if (i < img.length) {
+            item.setAttribute('src', cardData[i].imgSrc);
+            item.setAttribute('name', cardData[i].imgName);
+            i++;
+        }
+    });
+    currentLives = totalLives;
+    livesCount.textContent = currentLives;
+};
+
+const checkCards = () => {
+    let flippedCards = document.querySelectorAll('.flip');
+    if (flippedCards.length === 2) {
+        if (flippedCards[0].querySelector('img').name === flippedCards[1].querySelector('img').name) {
+            flippedCards.forEach(i => {
+                i.classList.add('matched');
+                i.classList.toggle('flip');
+            });
+        } else {
+            setTimeout(() => {
+                flippedCards.forEach(i => {
+                    i.classList.toggle('flip');
+                });
+                currentLives--;
+                livesCount.textContent = currentLives;
+                if (currentLives === 0) {
+                    alert('Sorry you lost. Play Again!');
+                    reset();
+                }
+            }, 1000);
+        }
+    }
+    const matchedCards = document.querySelectorAll('.matched');
+    if (matchedCards.length === 16) {
+        setTimeout(() => {
+            alert('Yay, You won the game... Congradulation!!!!!');
+            reset();
+        }, 1000);
+    }
+};
 
 livesCount.textContent = currentLives;
 cardGenerator();
