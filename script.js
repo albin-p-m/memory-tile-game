@@ -6,6 +6,7 @@ const totalLives = 6;
 
 //setting initial lives count..
 let currentLives = totalLives;
+livesCount.textContent = currentLives;
 
 //setting image data..
 const imgData = [
@@ -47,6 +48,7 @@ const cardGenerator = () => {
     });
 };
 
+//setting click Event Listener to cards
 cards.forEach(item => {
     item.addEventListener("click", (e) => {
         item.classList.toggle('flip');
@@ -54,6 +56,7 @@ cards.forEach(item => {
     });
 });
 
+//code to restart the game.
 const reset = () => {
     const matchedCards = document.querySelectorAll('.matched');
     matchedCards.forEach(item => {
@@ -77,6 +80,7 @@ const reset = () => {
     livesCount.textContent = currentLives;
 };
 
+//check the cards data to find match
 const checkCards = () => {
     let flippedCards = document.querySelectorAll('.flip');
     if (flippedCards.length === 2) {
@@ -108,5 +112,4 @@ const checkCards = () => {
     }
 };
 
-livesCount.textContent = currentLives;
 cardGenerator();
