@@ -43,6 +43,7 @@ const cardGenerator = () => {
     img.forEach(item => {
         if (i < img.length) {
             item.setAttribute('src', cardData[i].imgSrc);
+            item.setAttribute('name', cardData[i].imgName);
             i++;
         }
     });
